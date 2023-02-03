@@ -24,6 +24,7 @@ class SingleGameView(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = SingleGameSerializer
     permission_classes = [IsAdminUser | AllowAny]
+    lookup_field = 'name'
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
@@ -40,14 +41,3 @@ class SectionView(viewsets.ModelViewSet):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
             self.permission_classes = [IsAdminUser]
         return super(SectionView, self).get_permissions()
-
-
-class LegendView(viewsets.ModelViewSet):
-    queryset = Legend.objects.all()
-    serializer_class = LegendSerializer
-    permission_classes = [IsAdminUser | AllowAny]
-
-    def get_permissions(self):
-        if self.action in ['create', 'update', 'partial_update', 'destroy']:
-            self.permission_classes = [IsAdminUser]
-        return super(LegendView, self).get_permissions()

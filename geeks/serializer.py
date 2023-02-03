@@ -2,28 +2,51 @@ from rest_framework import serializers
 from . models import *
 
 
-class GameSerializer(serializers.ModelSerializer):
+class ExtendedContentSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Game
-        fields = ['id', 'name', 'image']
+        model = ExtendedContent
+        fields = ['image', 'text', 'name', 'type', 'order', 'direction']
 
 
-class LegendSerializer(serializers.ModelSerializer):
+class ContentSerializer(serializers.ModelSerializer):
+
+    extended = ExtendedContentSerializer(
+        many=True,
+        read_only=True
+    )
+
     class Meta:
-        model = Legend
-        fields = ['section', 'image', 'description', 'name']
+        model = Content
+        fields = ['text', 'name', 'extended', 'image', 'type', 'direction']
 
 
 class SectionSerializer(serializers.ModelSerializer):
-    legends = LegendSerializer(
+    contents = ContentSerializer(
+        many=True,
+        read_only=True
+    )
+
+    class Meta:
+        model = Section
+        fields = ['type', 'contents', 'hashid']
+
+
+class SectionNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Section
+        fields = ['type',  'hashid']
+
+
+class GameSerializer(serializers.ModelSerializer):
+    sections = SectionNameSerializer(
         many=True,
         read_only=True,
     )
 
     class Meta:
-        model = Section
-        fields = ['game', 'type', 'legends', 'content']
+        model = Game
+        fields = ['id', 'displayName', 'name', 'image', 'sections']
 
 
 class SingleGameSerializer(serializers.ModelSerializer):
@@ -34,5 +57,9 @@ class SingleGameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Game
-        fields = ['name', 'image', 'year', 'players',
-                  'playingTime', 'bgg', 'sections']
+        fields = ['displayName', 'name', 'image', 'year', 'players',
+                  'playingTime', 'bgg', 'sections', 'banner']
+        lookup_field = 'name'
+        extra_kwargs = {
+            'url': {'lookup_field': 'name'}
+        }

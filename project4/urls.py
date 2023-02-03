@@ -11,7 +11,7 @@ router = routers.DefaultRouter()
 router.register(r'game', SingleGameView)
 router.register(r'games', AllGamesView)
 router.register(r'section', SectionView)
-router.register(r'legend', LegendView)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

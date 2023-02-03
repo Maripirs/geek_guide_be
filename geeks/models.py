@@ -1,44 +1,90 @@
 from django.db import models
 from django import forms
-from django_jsonform.models.fields import ArrayField
 
 # Create your models here.
 
 
 class Game(models.Model):
-    name = models.CharField(max_length=30)
+    displayName = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
     image = models.ImageField(upload_to='images/', default=None)
     players = models.CharField(max_length=30)
     playingTime = models.CharField(max_length=30)
     bgg = models.CharField(max_length=1000)
     year = models.CharField(max_length=30)
+    banner = models.ImageField(
+        upload_to='images/', default=None, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return self.displayName
 
 
 class Section(models.Model):
     SECTION_TYPES = (
-        ("Icon Legend", " Icon Legend"),
+        ("Icon Legend", "Icon Legend"),
+        ("Round Order", "Round Order"),
         ("Turn Order", "Turn Order")
+    )
+    HASHID_TYPES = (
+        ("legend", "legend"),
+        ("round", "round"),
+        ("turn", "turn")
     )
     game = models.ForeignKey(
         Game, related_name="sections", on_delete=models.CASCADE)
     type = models.CharField(max_length=20, choices=SECTION_TYPES)
-    content = ArrayField(models.CharField(
-        max_length=2000, blank=True))
+
+    hashid = models.CharField(max_length=20, choices=HASHID_TYPES)
 
     def __str__(self):
         return f'{self.type} {self.game.__str__}'
 
 
-class Legend(models.Model):
+class Content(models.Model):
+    CONTENT_TYPES = (
+        ("legend", "legend"),
+        ("example", "example"),
+        ("description", "description")
+    )
+    DIRECTIONS = (
+        ("flex-row", "flex-row"),
+        ("flex-col", "flex-col"),
+    )
     section = models.ForeignKey(
-        Section, related_name='legends', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='images/', default=None)
-    description = models.CharField(max_length=1000)
+        Section, related_name='contents', on_delete=models.CASCADE)
+    text = models.CharField(max_length=1000)
     name = models.CharField(max_length=100)
     order = models.IntegerField()
+    type = models.CharField(max_length=20, choices=CONTENT_TYPES)
+    image = models.ImageField(upload_to='images/', default=None, blank=True)
+    direction = models.CharField(max_length=20, choices=DIRECTIONS)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['order']
+
+
+class ExtendedContent(models.Model):
+    CONTENT_TYPES = (
+        ("legend", "legend"),
+        ("example", "example"),
+        ("description", "description")
+    )
+    DIRECTIONS = (
+        ("flex-row", "flex-row"),
+        ("flex-col", "flex-col"),
+    )
+    type = models.CharField(max_length=20, choices=CONTENT_TYPES)
+    content = models.ForeignKey(
+        Content, related_name='extended', on_delete=models.CASCADE
+    )
+    name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='images/', default=None, blank=True)
+    text = models.CharField(max_length=1000)
+    order = models.IntegerField()
+    direction = models.CharField(max_length=20, choices=DIRECTIONS)
 
     def __str__(self):
         return self.name
