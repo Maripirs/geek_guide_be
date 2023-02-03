@@ -10,6 +10,7 @@ django-cors-headers = "*"
 pillow = "*"
 psycopg2-binary = "*"
 django-jsonform = "*"
+django-heroku = "*"
 
 [dev-packages]
 
