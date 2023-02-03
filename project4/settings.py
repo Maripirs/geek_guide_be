@@ -11,12 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 from pathlib import Path
 import os
-import django_heroku
 
-# dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-
-# config = dotenv_values(".env"
-# )
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -47,10 +42,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'geeks',
     'corsheaders',
-    'django_jsonform',
-    'django_heroku'
-
-
 ]
 
 MIDDLEWARE = [
