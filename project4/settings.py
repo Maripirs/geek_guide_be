@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'geeks',
     'corsheaders',
     'django_jsonform',
+    'django_heroku'
 
 
 ]
