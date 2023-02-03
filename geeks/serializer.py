@@ -6,7 +6,7 @@ class ExtendedContentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExtendedContent
-        fields = ['image', 'text', 'name', 'type', 'order', 'direction']
+        fields = ['image', 'text', 'type', 'order', 'direction']
 
 
 class ContentSerializer(serializers.ModelSerializer):

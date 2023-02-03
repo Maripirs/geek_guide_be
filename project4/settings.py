@@ -28,6 +28,8 @@ SECRET_KEY = config['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+
 ALLOWED_HOSTS = []
 
 MEDIA_URL = "/media/"
@@ -45,6 +47,8 @@ INSTALLED_APPS = [
     'geeks',
     'corsheaders',
     'django_jsonform',
+    'nested_inline',
+
 
 ]
 
@@ -86,7 +90,7 @@ WSGI_APPLICATION = 'project4.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'geek_db',
+        'NAME': 'geek_db_experiment',
     }
 }
 

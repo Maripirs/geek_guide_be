@@ -5,9 +5,19 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.response import Response
 from . serializer import *
-
-
+from django.http import HttpResponse
+from django.views import View
+from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView
 # Create your views here.
+
+
+class GameView(CreateView):
+    model = Game
+    fields ='__all__'
+    template_name = "Game.html"
+    success_url = "api/games"
+
 
 class AllGamesView(viewsets.ModelViewSet):
     queryset = Game.objects.all()
