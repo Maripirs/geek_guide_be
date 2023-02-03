@@ -126,6 +126,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 STATIC_URL = 'static/'
 
+ALLOWED_HOST = ["https://geek-guide.herokuapp.com/"]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
