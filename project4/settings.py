@@ -129,12 +129,12 @@ CORS_ORIGIN_ALLOW_ALL = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'geeks/static')]
+# STATICFILES_DIRS = [os.path.join(BASE_DIR,'geeks/static')]
 # STATICFILES_DIRS = [
 #     os.path.join(PROJECT_ROOT, 'static'),
 # ]
 
-ALLOWED_HOST = ["https://geek-guide.herokuapp.com/"]
+# ALLOWED_HOST = ["https://geek-guide.herokuapp.com/"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
