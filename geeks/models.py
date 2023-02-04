@@ -37,7 +37,7 @@ class Section(models.Model):
     hashid = models.CharField(max_length=20, choices=HASHID_TYPES)
 
     def __str__(self):
-        return f'{self.type} {self.game.__str__}'
+        return f'{self.type} {self.game.displayName}'
 
 
 class Content(models.Model):
@@ -52,12 +52,12 @@ class Content(models.Model):
     )
     section = models.ForeignKey(
         Section, related_name='contents', on_delete=models.CASCADE)
-    text = models.CharField(max_length=1000)
     name = models.CharField(max_length=100)
+    text = models.TextField(max_length=1000)
     order = models.IntegerField()
     type = models.CharField(max_length=20, choices=CONTENT_TYPES)
     image = models.ImageField(upload_to='images/', default=None, blank=True)
-    direction = models.CharField(max_length=20, choices=DIRECTIONS)
+    direction = models.CharField(max_length=20, choices=DIRECTIONS, default='flex-row')
 
     def __str__(self):
         return self.name
@@ -81,10 +81,10 @@ class ExtendedContent(models.Model):
         Content, related_name='extended', on_delete=models.CASCADE
     )
     name = models.CharField(max_length=100)
+    text = models.TextField(max_length=1000)
     image = models.ImageField(upload_to='images/', default=None, blank=True)
-    text = models.CharField(max_length=1000)
     order = models.IntegerField()
-    direction = models.CharField(max_length=20, choices=DIRECTIONS)
+    direction = models.CharField(max_length=20, choices=DIRECTIONS, default='flex-row')
 
     def __str__(self):
         return self.name
