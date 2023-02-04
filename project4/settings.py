@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'project4.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'geek_db',
+        'NAME': 'geek_db_experiment',
     }
 }
 

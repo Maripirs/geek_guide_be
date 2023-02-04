@@ -76,15 +76,14 @@ class ExtendedContent(models.Model):
         ("flex-row", "flex-row"),
         ("flex-col", "flex-col"),
     )
-    type = models.CharField(max_length=20, choices=CONTENT_TYPES)
+    type = models.CharField(max_length=21, choices=CONTENT_TYPES)
     content = models.ForeignKey(
         Content, related_name='extended', on_delete=models.CASCADE
     )
-    name = models.CharField(max_length=100)
     text = models.TextField(max_length=1000)
     image = models.ImageField(upload_to='images/', default=None, blank=True)
     order = models.IntegerField()
     direction = models.CharField(max_length=20, choices=DIRECTIONS, default='flex-row')
 
     def __str__(self):
-        return self.name
+        return f'{self.type}'
